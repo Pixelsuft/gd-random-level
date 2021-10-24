@@ -1,0 +1,6 @@
+.idea
+__pycache__
+random_level_ui.py
+main.spec
+build
+dist
