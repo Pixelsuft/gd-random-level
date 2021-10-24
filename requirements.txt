@@ -1,2 +1,4 @@
 gd.py
 PyQt5
+PySide2
+pyinstaller
