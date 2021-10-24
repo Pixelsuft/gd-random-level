@@ -10,6 +10,11 @@ from files.random_level_ui import Ui_MainWindow
 client = gd.Client()
 is_compiled = not ('python' in sys.executable.lower().strip())
 cur_path = os.path.dirname(__file__)
+os.chdir(cur_path)
+
+
+def p(file_name: str):
+    return os.path.join(cur_path, 'files', file_name)
 
 
 def register_exception(exception):
@@ -53,12 +58,12 @@ def generate_button_click():
         difficulty_path = f'difficulty_0{str(level_.difficulty.value + 5)}_btn_001.png'
     else:
         difficulty_path = f'difficulty_0{str(level_.difficulty.value)}_btn_001.png'
-    difficulty_img = QtGui.QPixmap(os.path.join(cur_path, 'files', difficulty_path))
+    difficulty_img = QtGui.QPixmap(p(difficulty_path))
     ui.difficultIcon.setPixmap(difficulty_img)
     ui.nameLabel.setText(level_.name)
     ui.authorLabel.setText('By: ' + level_.creator.name)
     like_prefix = '' if level_.rating >= 0 else 'dis'
-    like_img = QtGui.QPixmap(os.path.join(cur_path, 'files', f'GJ_{like_prefix}likesIcon_001.png'))
+    like_img = QtGui.QPixmap(p(f'GJ_{like_prefix}likesIcon_001.png'))
     ui.likeIcon.setPixmap(like_img)
     ui.likeLabel.setText(str(level_.rating))
     ui.downloadsLabel.setText(str(level_.downloads))
@@ -85,6 +90,14 @@ def generate_button_click():
 
 
 def on_init():
+    ui.difficultIcon.setPixmap(QtGui.QPixmap(p('difficulty_01_btn_001.png')))
+    ui.likeIcon.setPixmap(QtGui.QPixmap(p('GJ_likesIcon_001.png')))
+    ui.downloadsIcon.setPixmap(QtGui.QPixmap(p('GJ_downloadsIcon_001.png')))
+    ui.lengthIcon.setPixmap(QtGui.QPixmap(p('GJ_timeIcon_001.png')))
+    ui.starsIcon.setPixmap(QtGui.QPixmap(p('GJ_starsIcon_001.png')))
+    icon = QtGui.QIcon()
+    icon.addPixmap(QtGui.QPixmap(p('icon.png')), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+    MainWindow.setWindowIcon(icon)
     ui.generateButton.clicked.connect(generate_button_click)
 
 
